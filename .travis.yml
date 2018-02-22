@@ -12,11 +12,10 @@ addons:
     packages:
     - python-pip
     - curl
-    - python-docker
 
 install:
   # Check ansible version
-  - pip install ansible
+  - pip install ansible docker-py
 
   # Check ansible version
   - ansible --version
