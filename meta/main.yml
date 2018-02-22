@@ -1,0 +1,15 @@
+galaxy_info:
+  author: Miguel Caballer
+  description: Installs the JupyterHub server
+  company:  INDIGO-DataCloud
+  license: Apache
+  min_ansible_version: 2.0
+  platforms:
+  - name: EL
+    versions:
+    - 7  
+  - name: Ubuntu
+    versions:
+    - xenial
+dependencies:
+  - { role: 'grycap.docker'}
