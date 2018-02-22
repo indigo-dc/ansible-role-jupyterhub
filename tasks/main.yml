@@ -7,7 +7,7 @@
   register: kubeconf
 
 - name: Create jupyterhub config file
-  template: src=jupyterhub_config.py.j2 dest=/etc/jupyterhub_config.py
+  template: src=jupyterhub_config.py.j2 dest=/var/tmp/jupyterhub_config.py
 
 - name: Set kubernetes config file volume
   set_fact: volumes="{{volumes}} + ['/etc/kubernetes/admin.conf:/root/.kube/config']"

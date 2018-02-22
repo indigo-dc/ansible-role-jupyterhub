@@ -2,7 +2,7 @@
 jupyterhub_spawner: local
 # Volumes to mount to the container
 # Do not remove this one.
-volumes: ["/etc/jupyterhub_config.py:/jupyterhub_config.py"]
+volumes: ["/var/tmp/jupyterhub_config.py:/jupyterhub_config.py"]
 # Add users for local spawner
 # password is encrypted as expected in useradd command
 users: 
