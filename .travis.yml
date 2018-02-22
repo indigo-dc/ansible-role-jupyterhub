@@ -15,9 +15,6 @@ addons:
 
 install:
   # Check ansible version
-  - pip install ansible docker-py
-
-  # Check ansible version
   - ansible --version
 
   # Create ansible.cfg with correct roles_path
