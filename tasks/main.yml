@@ -16,7 +16,7 @@
 - name: Jupyterhub container
   docker_container:
     name: jupyterhub
-    image: grycap/jupyterhub
+    image: indigodatacloud/jupyterhub
     state: started
     volumes: "{{volumes}}"
     exposed_ports:
