@@ -4,6 +4,7 @@ jupyterhub_spawner: local
 # Do not remove this one.
 volumes: ["/etc/jupyterhub_config.py:/jupyterhub_config.py"]
 # Add users for local spawner
+# password is encrypted as expected in useradd command
 users: 
   - {"name": "user1", "password": "FxbYqKrYALWHo"}
   - {"name": "user2", "password": "FxbYqKrYALWHo"}
