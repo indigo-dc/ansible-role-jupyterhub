@@ -35,9 +35,7 @@ spec:
         name:  jupyterhub
     spec:
       tolerations:
-      - key: "key"
-        operator: "Equal"
-        value: "value"
+      - key: "node-role.kubernetes.io/master"
         effect: "NoSchedule"    
       containers:
         - name: jupyterhub

@@ -8,4 +8,6 @@
 
 - name: Create jupyterhub yaml file
   command: 'kubectl create configmap jupyterhub --namespace=jupyterhub --from-file=/etc/jupyterhub_config.py --from-file=/etc/kubernetes/admin.conf'
+  environment:
+    KUBECONFIG: /etc/kubernetes/admin.conf
   ignore_errors: yes
