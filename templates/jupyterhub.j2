@@ -44,7 +44,7 @@ spec:
           image:  indigodatacloud/jupyterhub
           env:
             - name: HUB_CONNECT_IP
-              value: jupyterhub
+              value: {{ ansible_default_ipv4.address }}
           ports:
           - containerPort: 8000
             name: port0
@@ -82,9 +82,9 @@ spec:
   ports:
   - name: http1
     port: 8000
-    nodePort: 30080
+    nodePort: 8000
   - name: http2
     port: 8081
-    nodePort: 30081
+    nodePort: 8081
   selector:
     name: jupyterhub
