@@ -1,0 +1,13 @@
+---
+
+- set_fact:
+    jupyterhub_config: "{{lookup('file', '/etc/jupyterhub_config.py')}}"
+    kube_conf: "{{lookup('file', '/etc/kubernetes/admin.conf')}}"
+
+- name: Create jupyterhub yaml file
+  template: src=jupyterhub.j2 dest=/tmp/jupyterhub.yaml
+
+- command: kubectl apply -f /tmp/jupyterhub.yaml
+  environment:
+    KUBECONFIG: /etc/kubernetes/admin.conf
+  when: jupyterhub_spawner == "kubernetes" and kubeconf.stat.exists

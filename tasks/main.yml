@@ -1,34 +1,6 @@
 ---
-- name: Install Docker-py
-  pip: name=docker-py
-
-- stat:
-    path: /etc/kubernetes/admin.conf
-  register: kubeconf
-
 - name: Create jupyterhub config file
   template: src=jupyterhub_config.py.j2 dest=/etc/jupyterhub_config.py
 
-- name: Set kubernetes config file volume
-  set_fact: volumes="{{volumes}} + ['/etc/kubernetes/admin.conf:/root/.kube/config']"
-  when: jupyterhub_spawner == "kubernetes" and kubeconf.stat.exists
-
-- name: Jupyterhub container
-  docker_container:
-    name: jupyterhub
-    image: indigodatacloud/jupyterhub
-    state: started
-    volumes: "{{volumes}}"
-    exposed_ports:
-      - 8000
-      - 8081
-    ports:
-    - "8000:8000"
-    - "8081:8081"
-    env:
-      HUB_CONNECT_IP: "{{ ansible_default_ipv4.address }}"
-
-- name: Create local users
-  command: docker exec jupyterhub bash -c 'id "{{ item.name }}" || useradd -m -p "{{ item.password }}" -s /bin/bash "{{ item.name }}"'
-  when: jupyterhub_spawner == "local"
-  with_items: "{{ users }}"
+- name: Include "{{jupyterhub_spawner}}" tasks
+  include: "{{jupyterhub_spawner}}.yaml"
