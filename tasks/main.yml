@@ -3,4 +3,4 @@
   template: src=jupyterhub_config.py.j2 dest=/etc/jupyterhub_config.py
 
 - name: Include "{{jupyterhub_spawner}}" tasks
-  include: "{{jupyterhub_spawner}}.yaml"
+  include: "{{jupyterhub_spawner}}.yml"
