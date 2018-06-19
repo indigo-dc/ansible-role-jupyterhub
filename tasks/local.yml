@@ -1,0 +1,22 @@
+---
+- name: Install Docker-py
+  pip: name=docker-py
+
+- name: Jupyterhub container
+  docker_container:
+    name: jupyterhub
+    image: indigodatacloud/jupyterhub
+    state: started
+    volumes:
+      - "/etc/jupyterhub_config.py:/jupyterhub_config.py"
+    exposed_ports:
+      - 8000
+      - 8081
+    ports:
+    - "8000:8000"
+    - "8081:8081"
+    env:
+
+- name: Create local users
+  command: docker exec jupyterhub bash -c 'id "{{ item.name }}" || useradd -m -p "{{ item.password }}" -s /bin/bash "{{ item.name }}"'
+  with_items: "{{ users }}"

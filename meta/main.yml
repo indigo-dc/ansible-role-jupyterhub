@@ -12,4 +12,4 @@ galaxy_info:
     versions:
     - xenial
 dependencies:
-  - { role: 'grycap.docker'}
+  - { role: 'grycap.docker', when: jupyterhub_spawner == 'local' }
