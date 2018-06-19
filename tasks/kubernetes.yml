@@ -2,12 +2,19 @@
 - name: Create jupyterhub yaml file
   template: src=jupyterhub.j2 dest=/tmp/jupyterhub.yaml
 
-- command: kubectl apply -f /tmp/jupyterhub.yaml
+- name: Create jupyterhub pod
+  command: kubectl apply -f /tmp/jupyterhub.yaml
   environment:
     KUBECONFIG: /etc/kubernetes/admin.conf
 
-- name: Create jupyterhub yaml file
+- name: Check if configmap exists
+  command: kubectl get configmap jupyterhub --namespace=jupyterhub
+  register: configmap_jupyterhub
+  failed_when: no
+  changed_when: configmap_jupyterhub.rc != 0
+
+- name: Create jupyterhub configmap
   command: 'kubectl create configmap jupyterhub --namespace=jupyterhub --from-file=/etc/jupyterhub_config.py --from-file=/etc/kubernetes/admin.conf'
   environment:
     KUBECONFIG: /etc/kubernetes/admin.conf
-  ignore_errors: yes
+  when: configmap_jupyterhub is changed
