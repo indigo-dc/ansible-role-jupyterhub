@@ -2,6 +2,11 @@
 - name: Create jupyterhub yaml file
   template: src=jupyterhub.j2 dest=/tmp/jupyterhub.yaml
 
+- name: Wait for kubernetes API
+  wait_for:
+    host: 0.0.0.0
+    port: 6433
+
 - name: Create jupyterhub pod
   command: kubectl apply -f /tmp/jupyterhub.yaml
   environment:
